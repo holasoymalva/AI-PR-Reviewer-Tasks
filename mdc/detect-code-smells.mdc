@@ -1,0 +1,280 @@
+---
+description: Detect code smells and anti-patterns in PR changes
+globs:
+alwaysApply: false
+---
+# Rule: Detect Code Smells and Anti-Patterns
+
+## Goal
+
+To guide an AI assistant in systematically identifying code smells, anti-patterns, and quality issues in Pull Request changes, providing specific recommendations for improvement.
+
+## Process
+
+1. **Receive Code Files:** Analyze the provided files using @ tags from the previous PR analysis.
+
+2. **Context Gathering:** Understand the focus areas:
+   - **Priority Areas:** "Should I focus on specific aspects? (performance, maintainability, security)"
+   - **Code Standards:** "Are there specific coding standards or style guides to follow?"
+   - **Language/Framework:** "Any language-specific or framework-specific patterns to check?"
+   - **Severity Filter:** "What level of issues should I prioritize? (critical, major, minor)"
+
+3. **Systematic Code Smell Detection:** Analyze code across multiple quality dimensions.
+
+4. **Generate Findings Report:** Create detailed report with specific issues and improvement suggestions.
+
+## Code Smell Categories
+
+### 🏗️ **Structural Code Smells**
+
+#### Long Method/Function
+- Functions exceeding 20-30 lines
+- Complex nested logic
+- Multiple responsibilities in single function
+- Hard to understand or test
+
+#### Large Class/Module
+- Classes with too many methods or properties
+- Modules handling multiple concerns
+- God objects or utility classes
+
+#### Duplicate Code
+- Identical or very similar code blocks
+- Copy-paste programming patterns
+- Missing abstractions or utilities
+
+#### Dead Code
+- Unused variables, functions, or imports
+- Unreachable code blocks
+- Commented-out code left in place
+
+### 🔄 **Object-Oriented Code Smells**
+
+#### Feature Envy
+- Methods using more features of other classes than their own
+- Inappropriate intimacy between objects
+- Poor encapsulation
+
+#### Data Clumps
+- Same group of parameters appearing together frequently
+- Related data not grouped into objects
+- Primitive obsession
+
+#### Inappropriate Intimacy
+- Classes knowing too much about each other's internals
+- Tight coupling between unrelated components
+- Breaking encapsulation principles
+
+### 🎯 **Method-Level Code Smells**
+
+#### Long Parameter List
+- Functions with 4+ parameters
+- Boolean flags indicating multiple responsibilities
+- Complex parameter objects
+
+#### Switch/If-Else Chains
+- Long conditional chains
+- Type checking instead of polymorphism
+- Missing strategy or factory patterns
+
+#### Temporary Fields
+- Fields only used in specific circumstances
+- Null object pattern violations
+- Inconsistent object state
+
+### 🔍 **Naming and Readability Issues**
+
+#### Poor Naming
+- Vague or misleading names
+- Inconsistent naming conventions
+- Abbreviations or cryptic names
+
+#### Magic Numbers/Strings
+- Hard-coded values without explanation
+- Missing constants or configuration
+- Unclear business logic
+
+#### Complex Expressions
+- Nested ternary operators
+- Complex boolean logic
+- Unclear mathematical calculations
+
+### ⚡ **Performance Code Smells**
+
+#### Inefficient Loops
+- Nested loops with high complexity
+- Unnecessary repeated operations
+- Missing early termination conditions
+
+#### Memory Leaks
+- Unreleased resources
+- Event listeners not cleaned up
+- Circular references
+
+#### Inefficient Data Structures
+- Wrong data structure for use case
+- Missing indexing or caching
+- Unnecessary data copying
+
+### 🚨 **Security Code Smells**
+
+#### Input Validation Issues
+- Missing input sanitization
+- SQL injection vulnerabilities
+- XSS attack vectors
+
+#### Hardcoded Secrets
+- API keys or passwords in code
+- Configuration in version control
+- Insecure credential handling
+
+#### Improper Error Handling
+- Exposing sensitive information in errors
+- Generic catch-all exception handling
+- Missing error logging
+
+## Detection Methodology
+
+### 1. Automated Pattern Recognition
+- Scan for common anti-patterns
+- Measure complexity metrics
+- Identify duplicate code blocks
+- Check naming conventions
+
+### 2. Contextual Analysis
+- Understand business logic requirements
+- Consider performance implications
+- Evaluate security impact
+- Assess maintainability concerns
+
+### 3. Best Practice Validation
+- Language-specific best practices
+- Framework conventions
+- Industry standards compliance
+- Team coding standards adherence
+
+## Severity Classification
+
+### 🔴 **Critical Issues**
+- Security vulnerabilities
+- Performance bottlenecks
+- Data corruption risks
+- Breaking changes without migration
+
+### 🟡 **Major Issues**
+- Maintainability problems
+- Testing difficulties
+- Design pattern violations
+- Technical debt accumulation
+
+### 🟢 **Minor Issues**
+- Style inconsistencies
+- Readability improvements
+- Documentation gaps
+- Optimization opportunities
+
+## Report Structure
+
+### 🎯 **Executive Summary**
+- Total issues found by severity
+- Most critical findings
+- Overall code quality assessment
+- Priority improvement areas
+
+### 🔍 **Detailed Findings**
+
+For each code smell detected:
+
+#### Issue Description
+- **File:** `path/to/file.js` (lines X-Y)
+- **Category:** [Structural/OOP/Performance/Security/etc.]
+- **Severity:** [Critical/Major/Minor]
+- **Pattern:** Specific code smell or anti-pattern name
+
+#### Code Example
+```javascript
+// Problematic code snippet
+function badExample() {
+    // highlight the issue
+}
+```
+
+#### Why It's a Problem
+- Explanation of the issue
+- Impact on maintainability/performance/security
+- Potential consequences
+
+#### Suggested Fix
+```javascript
+// Improved code example
+function goodExample() {
+    // show the better approach
+}
+```
+
+#### Benefits of Fix
+- Improved readability/performance/security
+- Easier testing and maintenance
+- Better adherence to principles
+
+### 📊 **Metrics Summary**
+- Complexity metrics (cyclomatic complexity, etc.)
+- Code duplication percentage
+- Test coverage gaps
+- Technical debt estimation
+
+### 🎯 **Quick Wins**
+- Easy fixes that provide immediate value
+- Low-effort, high-impact improvements
+- Automated refactoring opportunities
+
+### 🔄 **Refactoring Priorities**
+1. Security issues (immediate attention)
+2. Performance bottlenecks (high impact)
+3. Maintainability improvements (long-term value)
+4. Style and convention fixes (team consistency)
+
+## Language-Specific Patterns
+
+### JavaScript/TypeScript
+- Missing type safety
+- Callback hell
+- Prototype pollution
+- Memory leaks with closures
+
+### Python
+- Missing list comprehensions
+- Mutable default arguments
+- Import organization issues
+- Exception handling patterns
+
+### Java
+- Missing generics usage
+- Synchronization issues
+- Resource management problems
+- Design pattern misuse
+
+### Additional Languages
+- Apply language-specific best practices
+- Framework-specific anti-patterns
+- Performance considerations per language
+
+## Quality Checklist
+
+Ensure the analysis covers:
+- [ ] All major code smell categories examined
+- [ ] Severity levels appropriately assigned
+- [ ] Specific line numbers and files referenced
+- [ ] Clear explanations for each issue
+- [ ] Actionable improvement suggestions provided
+- [ ] Quick wins and priorities identified
+- [ ] Language/framework-specific patterns considered
+
+## Final Instructions
+
+1. Systematically scan all provided files for code smells
+2. Categorize and prioritize findings by severity and impact
+3. Provide specific code examples and improvement suggestions
+4. Focus on actionable recommendations
+5. Maintain constructive, educational tone
+6. Highlight both issues and positive aspects of the code
