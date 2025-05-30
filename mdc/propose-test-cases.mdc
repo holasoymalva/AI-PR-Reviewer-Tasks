@@ -1,0 +1,439 @@
+---
+description: Propose comprehensive test cases for PR changes
+globs:
+alwaysApply: false
+---
+# Rule: Propose Test Cases and Testing Strategy
+
+## Goal
+
+To guide an AI assistant in analyzing Pull Request changes and proposing comprehensive test cases, testing strategies, and quality assurance recommendations to ensure robust code coverage.
+
+## Process
+
+1. **Analyze Changed Functionality:** Examine the code changes to understand what functionality needs testing.
+
+2. **Understand Testing Context:** Gather information about testing requirements:
+   - **Current Coverage:** "What's the existing test coverage for these areas?"
+   - **Testing Framework:** "What testing framework and tools are being used?"
+   - **Test Types:** "Should I focus on unit, integration, or end-to-end tests?"
+   - **Critical Paths:** "Are there critical business flows that must be thoroughly tested?"
+   - **Performance Requirements:** "Are there performance benchmarks to meet?"
+
+3. **Analyze Test Gaps:** Identify missing or insufficient test coverage.
+
+4. **Generate Test Strategy:** Create comprehensive testing recommendations with specific test cases.
+
+## Test Analysis Framework
+
+### 🔍 **Functionality Analysis**
+- **New Features:** Identify all new functionality added
+- **Modified Behavior:** Understand changes to existing functionality
+- **Dependencies:** Map external dependencies and integrations
+- **Business Logic:** Identify critical business rules and workflows
+- **Error Conditions:** Catalog potential failure scenarios
+
+### 📊 **Test Coverage Assessment**
+- **Existing Tests:** Analyze current test coverage
+- **Coverage Gaps:** Identify untested code paths
+- **Test Quality:** Evaluate existing test effectiveness
+- **Regression Risks:** Identify areas prone to regression
+
+## Test Categories
+
+### 🧪 **Unit Tests**
+
+#### Function-Level Testing
+- Test individual functions with various inputs
+- Verify correct outputs for expected inputs
+- Test boundary conditions and edge cases
+- Validate error handling and exceptions
+
+#### Class/Module Testing
+- Test object state management
+- Verify method interactions
+- Test inheritance and polymorphism
+- Validate encapsulation and data integrity
+
+#### Mocking and Isolation
+- Mock external dependencies
+- Test in isolation from external systems
+- Verify interaction with mocked services
+- Test error scenarios from dependencies
+
+### 🔗 **Integration Tests**
+
+#### Component Integration
+- Test interaction between modules
+- Verify data flow between components
+- Test API contract compliance
+- Validate service integration
+
+#### Database Integration
+- Test data persistence operations
+- Verify database transactions
+- Test data migration and rollback
+- Validate query performance and optimization
+
+#### API Integration
+- Test RESTful API endpoints
+- Verify request/response formats
+- Test authentication and authorization
+- Validate error response handling
+
+### 🌐 **End-to-End Tests**
+
+#### User Journey Testing
+- Test complete user workflows
+- Verify business process flows
+- Test cross-system interactions
+- Validate user experience scenarios
+
+#### System Integration
+- Test full system behavior
+- Verify performance under load
+- Test deployment and configuration
+- Validate monitoring and logging
+
+### 🚀 **Performance Tests**
+
+#### Load Testing
+- Test system under expected load
+- Verify response time requirements
+- Test concurrent user scenarios
+- Validate resource utilization
+
+#### Stress Testing
+- Test system limits and breaking points
+- Verify graceful degradation
+- Test recovery from failures
+- Validate error handling under stress
+
+### 🔒 **Security Tests**
+
+#### Vulnerability Testing
+- Test input validation and sanitization
+- Verify authentication mechanisms
+- Test authorization controls
+- Validate secure data transmission
+
+#### Penetration Testing
+- Test for injection vulnerabilities
+- Verify session management
+- Test for privilege escalation
+- Validate secure configuration
+
+## Test Case Structure
+
+For each proposed test case:
+
+### 🎯 **Test Case Template**
+
+#### Test ID: TC_[Component]_[Function]_[Scenario]
+**Category:** [Unit/Integration/E2E/Performance/Security]  
+**Priority:** [High/Medium/Low]  
+**Component:** `ComponentName` or `path/to/file.js`  
+**Function:** `functionName()` or specific functionality
+
+#### Test Description
+Clear description of what is being tested and why
+
+#### Prerequisites
+- System state requirements
+- Test data setup needed
+- Environmental configuration
+- Dependencies that must be available
+
+#### Test Steps
+1. **Given:** Initial conditions and setup
+2. **When:** Action or trigger being tested
+3. **Then:** Expected outcome or behavior
+
+#### Test Data
+```javascript
+// Example test data structure
+const testData = {
+    validInput: { /* valid test data */ },
+    invalidInput: { /* invalid test data */ },
+    edgeCases: { /* boundary conditions */ }
+};
+```
+
+#### Expected Results
+- Specific expected outputs
+- Expected system state changes
+- Expected error messages or exceptions
+- Performance benchmarks (if applicable)
+
+#### Cleanup
+- Data cleanup requirements
+- System state restoration
+- Resource cleanup needs
+
+## Comprehensive Test Strategy
+
+### 🎯 **Test Coverage Goals**
+
+#### Code Coverage Targets
+- **Unit Tests:** 90%+ line coverage
+- **Integration Tests:** 80%+ integration path coverage
+- **Critical Paths:** 100% coverage for business-critical functionality
+- **Error Handling:** 100% coverage for error scenarios
+
+#### Functional Coverage
+- All new features fully tested
+- All modified functionality regression tested
+- All integration points validated
+- All error conditions covered
+
+### 🔄 **Test Automation Strategy**
+
+#### Continuous Integration
+- Automated test execution on PR submission
+- Performance regression testing
+- Security vulnerability scanning
+- Code quality and coverage reporting
+
+#### Test Pyramid Implementation
+```
+    🔺 E2E Tests (Few, High-Value)
+   🔺🔺 Integration Tests (Some, Key Paths)
+  🔺🔺🔺 Unit Tests (Many, Fast, Comprehensive)
+```
+
+## Specific Test Recommendations
+
+### 🧪 **Proposed Unit Tests**
+
+#### Test Case: User Input Validation
+```javascript
+describe('UserInputValidator', () => {
+    test('should validate email format correctly', () => {
+        // Given
+        const validator = new UserInputValidator();
+        const validEmail = 'user@example.com';
+        const invalidEmail = 'invalid-email';
+        
+        // When & Then
+        expect(validator.isValidEmail(validEmail)).toBe(true);
+        expect(validator.isValidEmail(invalidEmail)).toBe(false);
+    });
+    
+    test('should handle null and undefined inputs', () => {
+        const validator = new UserInputValidator();
+        
+        expect(() => validator.isValidEmail(null)).toThrow('Email cannot be null');
+        expect(() => validator.isValidEmail(undefined)).toThrow('Email cannot be undefined');
+    });
+});
+```
+
+#### Test Case: Business Logic Validation
+```javascript
+describe('OrderCalculator', () => {
+    test('should calculate total with tax correctly', () => {
+        // Given
+        const calculator = new OrderCalculator();
+        const orderItems = [
+            { price: 100, quantity: 2 },
+            { price: 50, quantity: 1 }
+        ];
+        const taxRate = 0.08;
+        
+        // When
+        const total = calculator.calculateTotal(orderItems, taxRate);
+        
+        // Then
+        expect(total).toBe(270); // (200 + 50) * 1.08
+    });
+});
+```
+
+### 🔗 **Proposed Integration Tests**
+
+#### Test Case: API Endpoint Integration
+```javascript
+describe('User API Integration', () => {
+    test('should create user and return valid response', async () => {
+        // Given
+        const userData = {
+            email: 'test@example.com',
+            name: 'Test User'
+        };
+        
+        // When
+        const response = await request(app)
+            .post('/api/users')
+            .send(userData)
+            .expect(201);
+        
+        // Then
+        expect(response.body).toMatchObject({
+            id: expect.any(String),
+            email: userData.email,
+            name: userData.name,
+            createdAt: expect.any(String)
+        });
+    });
+});
+```
+
+### 🌐 **Proposed E2E Tests**
+
+#### Test Case: Complete User Journey
+```javascript
+describe('User Registration Flow', () => {
+    test('should complete full registration process', async () => {
+        // Given
+        await page.goto('/register');
+        
+        // When
+        await page.fill('#email', 'newuser@example.com');
+        await page.fill('#password', 'SecurePassword123');
+        await page.fill('#confirmPassword', 'SecurePassword123');
+        await page.click('#registerButton');
+        
+        // Then
+        await expect(page).toHaveURL('/welcome');
+        await expect(page.locator('#welcomeMessage')).toContainText('Welcome');
+    });
+});
+```
+
+## Test Gap Analysis
+
+### 🎯 **Critical Missing Tests**
+
+#### High-Priority Gaps
+1. **Authentication Flow Testing**
+   - Login/logout functionality
+   - Session management
+   - Password reset flow
+   - Multi-factor authentication
+
+2. **Error Handling Coverage**
+   - Network failure scenarios
+   - Database connection issues
+   - Invalid input handling
+   - System overload conditions
+
+3. **Data Validation Testing**
+   - Input sanitization
+   - Business rule validation
+   - Data format verification
+   - Boundary condition testing
+
+### 🔄 **Regression Test Requirements**
+
+#### Areas Prone to Regression
+- Authentication and authorization
+- Payment processing
+- Data migration procedures
+- Third-party integrations
+
+#### Regression Test Strategy
+- Automated regression suite
+- Critical path validation
+- Performance regression checks
+- Security regression testing
+
+## Testing Tools and Framework Recommendations
+
+### 🛠️ **Recommended Testing Stack**
+
+#### JavaScript/TypeScript
+```javascript
+// Jest + Testing Library
+import { render, screen, fireEvent } from '@testing-library/react';
+import { jest } from '@jest/globals';
+
+// Supertest for API testing
+import request from 'supertest';
+
+// Playwright for E2E testing
+import { test, expect } from '@playwright/test';
+```
+
+#### Python
+```python
+# pytest + fixtures
+import pytest
+from unittest.mock import Mock, patch
+
+# requests-mock for API testing
+import requests_mock
+
+# Selenium for E2E testing
+from selenium import webdriver
+```
+
+### 📊 **Testing Metrics and Reporting**
+
+#### Coverage Metrics
+- Line coverage percentage
+- Branch coverage analysis
+- Function coverage tracking
+- Integration path coverage
+
+#### Quality Metrics
+- Test execution time
+- Test reliability (flakiness)
+- Defect detection rate
+- Test maintenance effort
+
+## Implementation Roadmap
+
+### Phase 1: Critical Test Coverage (Week 1)
+1. **Unit Tests for New Features**
+   - Core business logic validation
+   - Input validation testing
+   - Error handling verification
+
+2. **Integration Tests for Modified APIs**
+   - API contract validation
+   - Database integration testing
+   - Service integration verification
+
+### Phase 2: Comprehensive Coverage (Week 2-3)
+1. **End-to-End Critical Paths**
+   - User journey validation
+   - Business process testing
+   - Cross-system integration
+
+2. **Performance and Security Tests**
+   - Load testing implementation
+   - Security vulnerability testing
+   - Performance regression validation
+
+### Phase 3: Automation and CI/CD (Week 4)
+1. **Test Automation Pipeline**
+   - CI/CD integration setup
+   - Automated test execution
+   - Coverage reporting automation
+
+2. **Continuous Monitoring**
+   - Test metrics dashboard
+   - Quality gate implementation
+   - Regression detection system
+
+## Quality Checklist
+
+Ensure test strategy includes:
+- [ ] All new functionality covered by appropriate tests
+- [ ] Critical business logic thoroughly tested
+- [ ] Error conditions and edge cases addressed
+- [ ] Integration points validated
+- [ ] Performance requirements verified
+- [ ] Security vulnerabilities tested
+- [ ] Regression scenarios covered
+- [ ] Test automation pipeline ready
+
+## Final Instructions
+
+1. Analyze all changed functionality to identify test requirements
+2. Propose specific test cases with clear structure and expectations
+3. Recommend appropriate test types and frameworks
+4. Provide implementation examples for each test category
+5. Create realistic timeline for test implementation
+6. Focus on high-value tests that catch real issues
+7. Balance comprehensive coverage with practical implementation effort
