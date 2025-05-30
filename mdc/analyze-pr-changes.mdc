@@ -1,0 +1,173 @@
+---
+description: Comprehensive analysis of Pull Request changes
+globs:
+alwaysApply: false
+---
+# Rule: Analyze Pull Request Changes
+
+## Goal
+
+To guide an AI assistant in performing a comprehensive analysis of Pull Request changes, identifying impact, potential issues, and areas requiring attention during code review.
+
+## Process
+
+1. **Receive PR Context:** The user provides changed files using @ tags and optional context about the PR purpose.
+
+2. **Initial Analysis:** Examine all provided files to understand:
+   - Scope and nature of changes
+   - Files modified, added, or deleted
+   - Overall impact on the codebase
+   - Dependencies affected
+
+3. **Ask Clarifying Questions:** Gather additional context if needed:
+   - **PR Purpose:** "What is the main goal of this PR? (feature, bugfix, refactor, etc.)"
+   - **Breaking Changes:** "Are there any intended breaking changes or API modifications?"
+   - **Dependencies:** "Are there new dependencies or version updates involved?"
+   - **Testing:** "What testing has been done for these changes?"
+   - **Deployment:** "Are there any deployment considerations or environment changes?"
+
+4. **Systematic Analysis:** Perform detailed analysis across multiple dimensions.
+
+5. **Generate Report:** Create a comprehensive analysis report with findings and recommendations.
+
+## Analysis Framework
+
+### 1. Change Scope Analysis
+- **Files Changed:** Count and categorize modified files
+- **Lines of Code:** Estimate addition/deletion/modification scope
+- **Change Type:** Feature, bugfix, refactor, documentation, configuration
+- **Impact Radius:** How many parts of the system are affected
+
+### 2. Architectural Impact Assessment
+- **Design Patterns:** Changes to existing patterns or introduction of new ones
+- **Code Structure:** Impact on module organization and dependencies
+- **API Changes:** Modifications to public interfaces or contracts
+- **Database Changes:** Schema modifications, migrations, or query changes
+- **Configuration:** Changes to environment variables, settings, or deployment configs
+
+### 3. Security Analysis
+- **Authentication/Authorization:** Changes to access control or user management
+- **Input Validation:** Proper sanitization and validation of user inputs
+- **Data Exposure:** Risk of sensitive data leakage or exposure
+- **Dependency Security:** New packages or version updates with security implications
+- **OWASP Compliance:** Adherence to common security best practices
+
+### 4. Performance Impact Assessment
+- **Algorithm Complexity:** Big O analysis of new or modified algorithms
+- **Database Performance:** Query efficiency and indexing considerations
+- **Memory Usage:** Potential memory leaks or excessive memory consumption
+- **Network Calls:** API calls, external service dependencies, or caching
+- **Bundle Size:** Impact on application size and load times
+
+### 5. Breaking Changes Detection
+- **Public API:** Changes to public methods, classes, or interfaces
+- **Configuration:** Required environment variable or config changes
+- **Dependencies:** Version bumps that might break compatibility
+- **Database Schema:** Migrations that might affect existing data
+- **File Structure:** Moved or renamed files affecting imports
+
+### 6. Code Quality Assessment
+- **Complexity:** Cyclomatic complexity and maintainability metrics
+- **Duplication:** Repeated code patterns or logic
+- **Naming:** Consistency with project conventions
+- **Documentation:** Adequate comments and documentation
+- **Error Handling:** Proper exception handling and error cases
+
+## Analysis Report Structure
+
+Generate a report with the following sections:
+
+### 🔍 **PR Overview**
+- Change type and scope summary
+- Files affected (count and categories)
+- Overall impact assessment (Low/Medium/High)
+
+### 🏗️ **Architectural Changes**
+- Design pattern modifications
+- Module/component structure changes
+- API or interface modifications
+- Database schema changes
+
+### 🔒 **Security Considerations**
+- Security-sensitive changes identified
+- Vulnerability risks (if any)
+- Authentication/authorization impacts
+- Input validation requirements
+
+### ⚡ **Performance Impact**
+- Performance-critical changes
+- Potential bottlenecks or optimizations
+- Resource usage implications
+- Scalability considerations
+
+### 💥 **Breaking Changes**
+- Identified breaking changes
+- Migration requirements
+- Backward compatibility issues
+- Deployment considerations
+
+### ⚠️ **Risk Assessment**
+- High-risk changes requiring extra attention
+- Areas needing thorough testing
+- Potential rollback considerations
+- Dependencies requiring validation
+
+### ✅ **Positive Aspects**
+- Code quality improvements
+- Performance enhancements
+- Security strengthening
+- Technical debt reduction
+
+### 🎯 **Review Focus Areas**
+- Critical sections requiring detailed review
+- Suggested review priorities
+- Specific testing recommendations
+- Follow-up actions needed
+
+## Risk Level Classification
+
+### 🟢 **Low Risk**
+- Minor bug fixes
+- Documentation updates
+- Code style improvements
+- Non-breaking refactoring
+
+### 🟡 **Medium Risk**
+- New feature additions
+- Dependency updates
+- Configuration changes
+- Performance optimizations
+
+### 🔴 **High Risk**
+- Breaking API changes
+- Security-related modifications
+- Database schema changes
+- Major architectural changes
+
+## Quality Checklist
+
+Ensure the analysis covers:
+- [ ] All provided files have been examined
+- [ ] Security implications have been considered
+- [ ] Performance impact has been assessed
+- [ ] Breaking changes have been identified
+- [ ] Risk level has been appropriately classified
+- [ ] Specific review recommendations have been provided
+- [ ] Both positive aspects and concerns are highlighted
+
+## Output Guidelines
+
+- **Be Specific:** Reference exact files, functions, or lines when possible
+- **Prioritize Issues:** Rank findings by importance and risk level
+- **Provide Context:** Explain why something is a concern or improvement
+- **Actionable Recommendations:** Give clear next steps for reviewers
+- **Balanced Perspective:** Highlight both positive changes and areas of concern
+
+## Final Instructions
+
+1. Thoroughly examine all provided files
+2. Ask clarifying questions to understand PR context
+3. Perform systematic analysis across all dimensions
+4. Generate comprehensive report with clear risk assessment
+5. Provide specific, actionable recommendations for reviewers
+6. Maintain objective, constructive tone throughout analysis
