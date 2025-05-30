@@ -1,1 +1,294 @@
+---
+description: Provide actionable improvement suggestions for PR changes
+globs:
+alwaysApply: false
+---
+# Rule: Suggest Code Improvements
 
+## Goal
+
+To guide an AI assistant in providing specific, actionable improvement suggestions for Pull Request changes, focusing on code quality, performance, security, and maintainability enhancements.
+
+## Process
+
+1. **Receive Analysis Context:** Build upon previous analysis from `analyze-pr-changes.mdc` and `detect-code-smells.mdc`.
+
+2. **Prioritization Discussion:** Understand improvement focus:
+   - **Priority Areas:** "Should I focus on specific improvements? (performance, security, readability)"
+   - **Impact Level:** "Do you prefer high-impact changes or quick wins?"
+   - **Implementation Scope:** "Should I suggest refactoring or just surface-level improvements?"
+   - **Timeline:** "Are these for immediate implementation or future planning?"
+
+3. **Generate Improvement Suggestions:** Create specific, actionable recommendations with code examples.
+
+4. **Provide Implementation Roadmap:** Organize suggestions by priority and effort level.
+
+## Improvement Categories
+
+### 🚀 **Performance Optimizations**
+
+#### Algorithm Improvements
+- Replace inefficient algorithms with better alternatives
+- Optimize loop structures and conditions
+- Implement caching strategies
+- Reduce computational complexity
+
+#### Memory Management
+- Eliminate memory leaks
+- Optimize data structure usage
+- Implement object pooling where appropriate
+- Reduce memory allocations
+
+#### Database Optimizations
+- Query optimization and indexing
+- Batch operations instead of individual calls
+- Connection pooling
+- Lazy loading strategies
+
+### 🔒 **Security Enhancements**
+
+#### Input Validation
+- Implement comprehensive input sanitization
+- Add parameter validation
+- Prevent injection attacks
+- Validate file uploads and data types
+
+#### Authentication & Authorization
+- Strengthen access controls
+- Implement proper session management
+- Add audit logging
+- Secure API endpoints
+
+#### Data Protection
+- Encrypt sensitive data
+- Secure credential storage
+- Implement proper error handling
+- Add rate limiting
+
+### 🏗️ **Architectural Improvements**
+
+#### Design Patterns
+- Apply appropriate design patterns
+- Implement SOLID principles
+- Improve separation of concerns
+- Enhance modularity
+
+#### Code Organization
+- Improve file and folder structure
+- Enhance module boundaries
+- Implement proper abstractions
+- Reduce coupling between components
+
+#### API Design
+- Improve interface consistency
+- Enhance error handling
+- Add proper documentation
+- Implement versioning
+
+### 🧹 **Code Quality Enhancements**
+
+#### Readability
+- Improve naming conventions
+- Add meaningful comments
+- Simplify complex expressions
+- Enhance code documentation
+
+#### Maintainability
+- Reduce code duplication
+- Improve error handling
+- Add logging and monitoring
+- Implement configuration management
+
+#### Testing
+- Increase test coverage
+- Improve test quality
+- Add integration tests
+- Implement test automation
+
+## Suggestion Format
+
+For each improvement suggestion:
+
+### 🎯 **Improvement Title**
+**File:** `path/to/file.js` (lines X-Y)  
+**Category:** [Performance/Security/Architecture/Quality]  
+**Impact:** [High/Medium/Low]  
+**Effort:** [Low/Medium/High]
+
+#### Current Implementation
+```javascript
+// Show current problematic code
+function currentImplementation() {
+    // highlight the area needing improvement
+}
+```
+
+#### Suggested Improvement
+```javascript
+// Show improved version
+function improvedImplementation() {
+    // demonstrate the better approach
+    // with clear comments explaining changes
+}
+```
+
+#### Benefits
+- **Performance:** 40% faster execution time
+- **Security:** Eliminates XSS vulnerability
+- **Maintainability:** Reduces code complexity by 50%
+- **Readability:** Clearer intent and easier to understand
+
+#### Implementation Notes
+- Step-by-step implementation guidance
+- Potential migration considerations
+- Testing recommendations
+- Dependencies or prerequisites
+
+## Priority Matrix
+
+### 🔴 **High Priority - Immediate Action**
+- Security vulnerabilities
+- Performance bottlenecks
+- Critical bugs or errors
+- Breaking changes
+
+### 🟡 **Medium Priority - Next Sprint**
+- Code quality improvements
+- Maintainability enhancements
+- Minor performance optimizations
+- Documentation improvements
+
+### 🟢 **Low Priority - Future Consideration**
+- Style consistency fixes
+- Minor refactoring opportunities
+- Nice-to-have features
+- Code organization improvements
+
+## Implementation Roadmap
+
+### Phase 1: Critical Fixes (Week 1)
+1. **Security Issues**
+   - Fix identified vulnerabilities
+   - Implement input validation
+   - Secure authentication flows
+
+2. **Performance Bottlenecks**
+   - Optimize slow algorithms
+   - Fix memory leaks
+   - Improve database queries
+
+### Phase 2: Quality Improvements (Week 2-3)
+1. **Code Structure**
+   - Refactor complex functions
+   - Improve error handling
+   - Add proper abstractions
+
+2. **Testing & Documentation**
+   - Increase test coverage
+   - Add missing documentation
+   - Implement integration tests
+
+### Phase 3: Enhancement & Polish (Week 4+)
+1. **Architecture Refinements**
+   - Apply design patterns
+   - Improve modularity
+   - Enhance APIs
+
+2. **Developer Experience**
+   - Improve tooling
+   - Add code quality checks
+   - Enhance development workflow
+
+## Specific Improvement Types
+
+### 🔄 **Refactoring Suggestions**
+- Extract method/class refactoring
+- Replace conditional with polymorphism
+- Introduce parameter objects
+- Eliminate duplicate code
+
+### ⚡ **Performance Enhancements**
+- Implement caching layers
+- Optimize data structures
+- Reduce network calls
+- Improve algorithm efficiency
+
+### 🛡️ **Security Hardening**
+- Add input validation layers
+- Implement proper authentication
+- Secure data transmission
+- Add audit logging
+
+### 🧪 **Testing Improvements**
+- Add missing test cases
+- Improve test coverage
+- Implement property-based testing
+- Add performance benchmarks
+
+## Code Examples by Language
+
+### JavaScript/TypeScript
+```typescript
+// Before: Poor error handling
+function fetchUserData(id) {
+    return fetch(`/api/users/${id}`)
+        .then(response => response.json());
+}
+
+// After: Robust error handling
+async function fetchUserData(id: string): Promise<User> {
+    try {
+        const response = await fetch(`/api/users/${encodeURIComponent(id)}`);
+        
+        if (!response.ok) {
+            throw new Error(`Failed to fetch user: ${response.status}`);
+        }
+        
+        return await response.json() as User;
+    } catch (error) {
+        logger.error('Error fetching user data', { id, error });
+        throw new UserFetchError(`Unable to fetch user ${id}`, error);
+    }
+}
+```
+
+### Python
+```python
+# Before: Inefficient list operations
+def process_items(items):
+    result = []
+    for item in items:
+        if item.is_valid():
+            result.append(item.transform())
+    return result
+
+# After: List comprehension with better performance
+def process_items(items: List[Item]) -> List[ProcessedItem]:
+    """Process valid items and return transformed results."""
+    return [
+        item.transform() 
+        for item in items 
+        if item.is_valid()
+    ]
+```
+
+## Quality Checklist
+
+Ensure suggestions include:
+- [ ] Specific code examples showing before/after
+- [ ] Clear explanation of benefits
+- [ ] Implementation guidance and steps
+- [ ] Appropriate priority and effort estimation
+- [ ] Consideration of potential side effects
+- [ ] Testing recommendations
+- [ ] Performance impact assessment
+
+## Final Instructions
+
+1. Build upon previous analysis findings
+2. Provide specific, actionable code improvements
+3. Include clear before/after examples
+4. Prioritize suggestions by impact and effort
+5. Consider implementation feasibility and timeline
+6. Maintain focus on practical, achievable improvements
+7. Provide step-by-step implementation guidance
